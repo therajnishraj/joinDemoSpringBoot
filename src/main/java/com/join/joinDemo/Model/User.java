@@ -27,13 +27,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String username;
-    @OneToMany(mappedBy = "userO",cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "userObj",cascade=CascadeType.ALL)
     List<Order> orderList;
 
     public void setOrderList(List<Order> orderList) {
         this.orderList = orderList;
         for (Order order : orderList) {
-            order.setUserO(this); // ✅ Auto-assign user to each order
+            order.setUserObj(this); // ✅ Auto-assign user to each order
         }
     }
 }

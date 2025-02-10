@@ -29,5 +29,5 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "user_order_id")
     @JsonIgnore
-    User userO;
+    User userObj;
 }
