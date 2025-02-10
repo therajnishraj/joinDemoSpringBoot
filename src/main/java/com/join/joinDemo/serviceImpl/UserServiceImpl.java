@@ -12,7 +12,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,7 +67,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public byte[] downloadImage(String path) {
         try {
-            FileInputStream fileInputStream=new FileInputStream(new File(path));
+            FileInputStream fileInputStream = new FileInputStream(new File(path));
             byte[] bytes = fileInputStream.readAllBytes();
             return bytes;
         } catch (FileNotFoundException e) {
