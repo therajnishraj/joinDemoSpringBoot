@@ -5,7 +5,14 @@ import com.join.joinDemo.repo.UserRepo;
 import com.join.joinDemo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,5 +49,32 @@ public class UserServiceImpl implements UserService {
     public String deleteUserById(long id) {
         userRepo.deleteById(id);
         return "User deleted successfully..!";
+    }
+
+    @Override
+    public String uploadImage(MultipartFile multipartFile) {
+        File file = new File("/home/rajnish/Desktop/testMultipart/" + multipartFile.getOriginalFilename());
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            fileOutputStream.write(multipartFile.getBytes());
+            return "image saved successfully";
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public byte[] downloadImage(String path) {
+        try {
+            FileInputStream fileInputStream=new FileInputStream(new File(path));
+            byte[] bytes = fileInputStream.readAllBytes();
+            return bytes;
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
